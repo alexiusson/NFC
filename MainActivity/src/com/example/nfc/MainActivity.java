@@ -19,13 +19,15 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		
-		// Check for available NFC Adapter
+		/*// Check for available NFC Adapter
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		if (mNfcAdapter == null) {
             Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
@@ -49,7 +51,7 @@ public class MainActivity extends Activity {
     	            Toast.makeText(this, str, Toast.LENGTH_LONG).show();
     	        }
     	    }
-        }
+        }*/
 	
 		return true;
 	}
