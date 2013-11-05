@@ -22,12 +22,12 @@ public class MainActivity extends Activity {
 	
 	
 
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		
-		/*// Check for available NFC Adapter
+		// Check for available NFC Adapter
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		if (mNfcAdapter == null) {
             Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
@@ -51,25 +51,94 @@ public class MainActivity extends Activity {
     	            Toast.makeText(this, str, Toast.LENGTH_LONG).show();
     	        }
     	    }
-        }*/
+        }
 	
 		return true;
-	}
+	}*/
 	
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		if (mNfcAdapter == null) {
+            //Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
+//            finish();
+            
+        } else;
+            //Toast.makeText(this, "NFC is available", Toast.LENGTH_LONG).show();
+	}
+
+
+
 	public void onResume() {
 	    super.onResume();
+	    
+	    /*mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		if (mNfcAdapter == null) {
+            Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
+//            finish();
+            
+        } else
+            Toast.makeText(this, "NFC is available", Toast.LENGTH_LONG).show();*/
+		
+		String str = "";
 	    NdefMessage[] msgs;
 	    Intent intent = getIntent();
+	    NdefMessage test = null;
+	    byte[] ndef;
+	    long time = 0;
+	    long endtime = 0;
+	    double size, sendtime;
 	    if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
+	    	time = System.currentTimeMillis();
+            //Toast.makeText(this, "Tag discovered", Toast.LENGTH_LONG).show();
 	        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+	        test = (NdefMessage) rawMsgs[0];
 	        if (rawMsgs != null) {
 	            msgs = new NdefMessage[rawMsgs.length];
 	            for (int i = 0; i < rawMsgs.length; i++) {
 	                msgs[i] = (NdefMessage) rawMsgs[i];
+	                str += msgs[i];
+	                
 	            }
 	        }
 	    }
 	    //process the msgs array
+	    if(test != null){
+	    	endtime = System.currentTimeMillis();
+	    	ndef = test.toByteArray();
+	    	byte[] payload = test.getRecords()[0].getPayload();
+	    	System.out.println(payload.length);
+	    	endtime -= time;
+	    	size = ((double)ndef.length)/endtime;
+	    	size = Math.round(size*10000);
+	    	size = size/10000;
+	    	sendtime = ((double)endtime/1000)/((double)size*endtime);
+	    	sendtime = Math.round(size*10000);
+	    	sendtime = size/10000;
+	    	Toast.makeText(this, String.valueOf(size)+"kb/s", Toast.LENGTH_LONG).show();
+	    	
+	    	try{
+	    		//Get the Text Encoding
+		        String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+
+		        //Get the Language Code
+		        int languageCodeLength = payload[0] & 0077;
+		        String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+
+		        //Get the Text
+		        String text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
+		        
+		        //Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+
+	    	} catch(Exception e){
+	    		throw new RuntimeException("Record Parsing Failure!!");
+	    	}
+	    	
+	    	str = new String(test.getRecords()[0].getPayload());
+	    }
+	    
 	}
 	
 	/** Called when the user touches the button */
