@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
         } else
             Toast.makeText(this, "NFC is available", Toast.LENGTH_LONG).show();*/
 		
-		String str = "";
+		/*String str = "";
 	    NdefMessage[] msgs;
 	    Intent intent = getIntent();
 	    NdefMessage test = null;
@@ -103,9 +103,9 @@ public class MainActivity extends Activity {
 	                
 	            }
 	        }
-	    }
+	    }*/
 	    //process the msgs array
-	    if(test != null){
+	    /*if(test != null){
 	    	endtime = System.currentTimeMillis();
 	    	ndef = test.toByteArray();
 	    	byte[] payload = test.getRecords()[0].getPayload();
@@ -137,7 +137,7 @@ public class MainActivity extends Activity {
 	    	}
 	    	
 	    	str = new String(test.getRecords()[0].getPayload());
-	    }
+	    }*/
 	    
 	}
 	

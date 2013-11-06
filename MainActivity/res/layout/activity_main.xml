@@ -32,4 +32,13 @@
         android:onClick="sendWriteMessage"
         android:text="Write" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/readButton"
+        android:layout_marginTop="52dp"
+        android:text="main123" />
+
 </RelativeLayout>
