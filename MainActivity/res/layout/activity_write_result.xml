@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="start"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ReadResultsActivity" >
+
+    <Button
+        android:id="@+id/writeSendMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/writeEnterMessage"
+        android:layout_centerHorizontal="true"
+        android:text="Write" />
+
+    <EditText
+        android:id="@+id/writeEnterMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/writeResult"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:text="@string/write_message_text" />
+
+    <TextView
+        android:id="@+id/writeResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/writeSendMessage"
+        android:layout_marginRight="26dp"
+        android:layout_marginTop="104dp"
+        android:layout_toLeftOf="@+id/writeSendMessage"
+        android:text="writeresult" />
+
+</RelativeLayout>

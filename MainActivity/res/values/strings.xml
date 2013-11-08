@@ -8,5 +8,6 @@
     <string name="title_activity_write">Write</string>
     <string name="title_activity_top_ten">Last ten</string>
     <string name="title_activity_read_results">ReadResultsActivity</string>
+    <string name="write_message_text">Write a message</string>
 
 </resources>
