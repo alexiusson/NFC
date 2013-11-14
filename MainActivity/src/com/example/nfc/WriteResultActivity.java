@@ -5,8 +5,9 @@ import java.io.UnsupportedEncodingException;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
+/*import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;*/
+import android.view.View.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NdefMessage;
@@ -36,11 +37,12 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_write_result);
 		mAdapter = NfcAdapter.getDefaultAdapter(this);
 		// Write button
-		writeTagButton = (Button) findViewById(R.id.writeButton);
+		writeTagButton = (Button) findViewById(R.id.writeSendButton);
 		writeTagButton.setOnClickListener((android.view.View.OnClickListener) this);
+
 		// Här skrivs write speed ut
 		writeResultTV = (TextView) findViewById(R.id.writeResult);
-		// Här matas input till tag
+//		 Här matas input till tag
 		enterMessageField = (EditText) findViewById(R.id.writeEnterMessage);
 	}
 
@@ -55,6 +57,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		enableWrite();
 	}
 
 	@Override
@@ -66,10 +69,11 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	@Override
 	public void onClick(View v) {
-		if(v.getId() == R.id.writeButton) {
+		if(v.getId() == R.id.writeSendButton) {
 			writeResultTV.setText("Hold tag against phone to write.");
-			enableWrite();
+//			enableWrite();
 		}
 	}
 	
@@ -87,11 +91,6 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		mAdapter.disableForegroundDispatch(this);
 	}
 
-	@Override
-	public void onClick(DialogInterface arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	private boolean writeToTag(Tag tag) {
 		NdefMessage message = editTextToNdefMsg(enterMessageField);

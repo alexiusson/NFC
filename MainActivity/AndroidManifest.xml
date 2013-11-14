@@ -50,24 +50,27 @@
         <activity
             android:name="com.example.nfc.ReadResultsActivity"
             android:label="@string/title_activity_read_results" >
+            <!-- 
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
-            </intent-filter>
+            </intent-filter> 
+            -->
+            
         </activity>
          <activity
             android:name="com.example.nfc.WriteResultActivity"
             android:label="title_activity_write_result"
             android:screenOrientation="portrait"
             android:theme="@style/noAnimTheme" >
+            <!-- 
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT"/>
 			    <data android:mimeType="text/plain" />
 			</intent-filter>
+			-->
 	        </activity>
     </application>
 

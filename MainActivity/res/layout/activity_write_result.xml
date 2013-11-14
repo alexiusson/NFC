@@ -10,7 +10,7 @@
     tools:context=".ReadResultsActivity" >
 
     <Button
-        android:id="@+id/writeSendMessage"
+        android:id="@+id/writeSendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/writeEnterMessage"
