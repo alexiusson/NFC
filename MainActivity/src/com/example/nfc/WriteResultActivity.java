@@ -29,7 +29,8 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	private boolean inWriteMode;
 	private TextView writeResultTV;
 	private EditText enterMessageField;
-
+	private long startTime;
+	private long endTime;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -72,13 +73,13 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.writeSendButton) {
+			inWriteMode = true;
 			writeResultTV.setText("Hold tag against phone to write.");
 //			enableWrite();
 		}
 	}
 	
 	private void enableWrite() {
-		inWriteMode = true;
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 	            new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
@@ -112,8 +113,10 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 					Toast.makeText(this, "Tag doesn't have enough free space.", Toast.LENGTH_LONG).show();
 					return false;
 				}
-
+				startTime=System.currentTimeMillis();
 				ndef.writeNdefMessage(message);
+				endTime=System.currentTimeMillis();
+				computeTime(startTime, endTime, message);
 				Toast.makeText(this, "Tag written successfully.", Toast.LENGTH_LONG).show();
 				return true;
 			} else {
@@ -122,8 +125,11 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 				if (format != null) {
 					try {
 						format.connect();
+						startTime=System.currentTimeMillis();
 						format.format(message);
+						endTime=System.currentTimeMillis();
 						Toast.makeText(this, "Tag written successfully!", Toast.LENGTH_LONG).show();
+						computeTime(startTime, endTime, message);
 						return true;
 					} catch (IOException e) {
 						Toast.makeText(this, "Unable to format tag to NDEF.", Toast.LENGTH_LONG).show();
@@ -140,6 +146,14 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 
         return false;
     }
+	
+	private void computeTime(long sTime, long eTime, NdefMessage nMessage){
+		int bytes = nMessage.getByteArrayLength();
+		double bytesPermilSec= (eTime-sTime)/(double)bytes;
+		Toast.makeText(this, "Writespeed: " + String.valueOf(bytesPermilSec) + " kb/s", Toast.LENGTH_LONG).show();
+		
+	}
+	
 	private NdefMessage editTextToNdefMsg(EditText et) {
 		String msg = et.getText().toString();
 	    byte[] languageCode;
