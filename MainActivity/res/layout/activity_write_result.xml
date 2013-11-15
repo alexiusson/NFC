@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/writeSendMessage"
         android:layout_marginRight="26dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="300dp"
         android:layout_toLeftOf="@+id/writeSendMessage"
         android:text="writeresult" />
 

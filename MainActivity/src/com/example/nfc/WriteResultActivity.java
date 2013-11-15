@@ -31,6 +31,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	private EditText enterMessageField;
 	private long startTime;
 	private long endTime;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -43,7 +44,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 
 		// Här skrivs write speed ut
 		writeResultTV = (TextView) findViewById(R.id.writeResult);
-//		 Här matas input till tag
+		// Här matas input till tag
 		enterMessageField = (EditText) findViewById(R.id.writeEnterMessage);
 	}
 
@@ -75,7 +76,6 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		if(v.getId() == R.id.writeSendButton) {
 			inWriteMode = true;
 			writeResultTV.setText("Hold tag against phone to write.");
-//			enableWrite();
 		}
 	}
 	
@@ -99,6 +99,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		try {
 			// see if tag is already NDEF formatted
 			Ndef ndef = Ndef.get(tag);
+			String type = ndef.getType();
 			if (ndef != null) {
 				ndef.connect();
 
@@ -150,6 +151,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	private void computeTime(long sTime, long eTime, NdefMessage nMessage){
 		int bytes = nMessage.getByteArrayLength();
 		double bytesPermilSec= (eTime-sTime)/(double)bytes;
+		writeResultTV.setText("NFC Type: " );
 		Toast.makeText(this, "Writespeed: " + String.valueOf(bytesPermilSec) + " kb/s", Toast.LENGTH_LONG).show();
 		
 	}
