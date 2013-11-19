@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 /*import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;*/
 import android.view.View.OnClickListener;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NdefMessage;
@@ -18,6 +19,7 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -76,6 +78,10 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		if(v.getId() == R.id.writeSendButton) {
 			inWriteMode = true;
 			writeResultTV.setText("Hold tag against phone to write.");
+			
+			InputMethodManager imn = (InputMethodManager) getSystemService(
+					Context.INPUT_METHOD_SERVICE);
+			imn.hideSoftInputFromWindow(enterMessageField.getWindowToken(), 0);
 		}
 	}
 	
@@ -117,7 +123,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 				startTime=System.currentTimeMillis();
 				ndef.writeNdefMessage(message);
 				endTime=System.currentTimeMillis();
-				computeTime(startTime, endTime, message);
+				computeTime(startTime, endTime, message, type);
 				Toast.makeText(this, "Tag written successfully.", Toast.LENGTH_LONG).show();
 				return true;
 			} else {
@@ -130,7 +136,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 						format.format(message);
 						endTime=System.currentTimeMillis();
 						Toast.makeText(this, "Tag written successfully!", Toast.LENGTH_LONG).show();
-						computeTime(startTime, endTime, message);
+						computeTime(startTime, endTime, message, type);
 						return true;
 					} catch (IOException e) {
 						Toast.makeText(this, "Unable to format tag to NDEF.", Toast.LENGTH_LONG).show();
@@ -148,11 +154,30 @@ public class WriteResultActivity extends Activity implements OnClickListener {
         return false;
     }
 	
-	private void computeTime(long sTime, long eTime, NdefMessage nMessage){
+	private void computeTime(long sTime, long eTime, NdefMessage nMessage, String type){
 		int bytes = nMessage.getByteArrayLength();
 		double bytesPermilSec= (eTime-sTime)/(double)bytes;
-		writeResultTV.setText("NFC Type: " );
-		Toast.makeText(this, "Writespeed: " + String.valueOf(bytesPermilSec) + " kb/s", Toast.LENGTH_LONG).show();
+		bytesPermilSec = Math.round(bytesPermilSec*100);
+		bytesPermilSec = bytesPermilSec/100;
+		
+		if(type.equals(Ndef.MIFARE_CLASSIC)){
+			type = "Mifareclassic";
+		}else if(type.equals(Ndef.NFC_FORUM_TYPE_1)){
+			type = "1";
+		}else if(type.equals(Ndef.NFC_FORUM_TYPE_2)){
+			type = "2";
+		}else if(type.equals(Ndef.NFC_FORUM_TYPE_3)){
+			type = "3";
+		}else if(type.equals(Ndef.NFC_FORUM_TYPE_4)){
+			type = "4";
+		}else{
+			type = "Unknown";
+		}
+		
+		writeResultTV.setText(	"NFC Type: " + type + " detected\n\n" + 
+								"Writespeed: " + String.valueOf(bytesPermilSec) + " kb/s");
+
+//		Toast.makeText(this, "Writespeed: " + String.valueOf(bytesPermilSec) + " kb/s", Toast.LENGTH_LONG).show();
 		
 	}
 	
@@ -184,5 +209,28 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	    message = new NdefMessage(records);
 	    
 	    return message;
+	}
+	
+	/** Called when the user touches the button */
+	public void sendWriteMessage(View view) {
+	    // Do something in response to button click
+		Intent myIntent = new Intent(this, WriteResultActivity.class);
+//		myIntent.putExtra("key", value); //Optional parameters
+		this.startActivity(myIntent);
+		finish();
+	}
+	/** Called when the user touches the button */
+	public void sendReadMessage(View view) {
+	    // Do something in response to button click
+		Intent myIntent = new Intent(this, ReadResultsActivity.class);
+//		myIntent.putExtra("key", value); //Optional parameters
+		this.startActivity(myIntent);
+	}
+	/** Called when the user touches the button */
+	public void sendLastTenMessage(View view) {
+		// Do something in response to button click
+		Intent myIntent = new Intent(this, TopTenActivity.class);
+//		myIntent.putExtra("key", value); //Optional parameters
+		this.startActivity(myIntent);
 	}
 }

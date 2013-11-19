@@ -8,7 +8,6 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -17,6 +16,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +29,8 @@ public class ReadResultsActivity extends Activity {
 	private EditText enterMessageField;
 	private long startTime;
 	private long endTime;
+	private TextView tv;
+	private ProgressBar pb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,9 @@ public class ReadResultsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_read_results);
 		mAdapter = NfcAdapter.getDefaultAdapter(this);
+		tv = (TextView) findViewById(R.id.readResult);
+		tv.setText("Waiting for tag detection...");
+		pb = (ProgressBar) findViewById(R.id.progressBar1);
 		// Read button
 		//readTagButton = (Button) findViewById(R.id.writeSendButton);
 		
@@ -72,6 +77,7 @@ public class ReadResultsActivity extends Activity {
 
 		Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 		readFromTag(tag);
+		pb.setVisibility(View.GONE);
 
 	}
 
@@ -91,20 +97,31 @@ public class ReadResultsActivity extends Activity {
 	}
 
 	private void readFromTag(Tag tag) {
-		TextView  tv= (TextView) findViewById(R.id.writeResult);
-		String str = "";
-	    Intent intent = getIntent();
 	    long startTime = 0;
 	    long endTime = 0;
 	    double bytesPerMilliSecond;
-			//Toast.makeText(this, "Tag discovered", Toast.LENGTH_LONG).show();
-			
-	        //Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 	    
 		NdefMessage message;
 		String type;
 		Ndef ndef =Ndef.get(tag);
 		type = ndef.getType();
+		
+		
+		
+		if(type.equals(Ndef.MIFARE_CLASSIC)){
+			type = "Mifareclassic";
+		}else if(type.equals(Ndef.NFC_FORUM_TYPE_1)){
+			type = "1";
+		}else if(type.equals(Ndef.NFC_FORUM_TYPE_2)){
+			type = "2";
+		}else if(type.equals(Ndef.NFC_FORUM_TYPE_3)){
+			type = "3";
+		}else if(type.equals(Ndef.NFC_FORUM_TYPE_4)){
+			type = "4";
+		}else{
+			type = "Unknown";
+		}
+		
 		try {
 	    	startTime = System.currentTimeMillis();
 			ndef.connect();
@@ -112,42 +129,22 @@ public class ReadResultsActivity extends Activity {
 	        endTime = System.currentTimeMillis();
 			ndef.close();
 	        if (message != null) {
-		        //message = (NdefMessage) rawMsgs[0];
 	        	byte[] payload = message.getRecords()[0].getPayload();
 				bytesPerMilliSecond = (endTime - startTime)/ (double) payload.length;
-		        Toast.makeText(this, String.valueOf(bytesPerMilliSecond), Toast.LENGTH_LONG).show();
-		        
-		        tv.setText("NFC  Type "+type + "detected"+"\n"+"\n" +"ReadSpeed: " + String.valueOf(bytesPerMilliSecond) + "kb/s");
-
-			
+				bytesPerMilliSecond = Math.round(bytesPerMilliSecond*100);
+				bytesPerMilliSecond = bytesPerMilliSecond/100;
 				
-				
-				try{
-		    		//Get the Text Encoding
-			        String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+	    		//Get the Text Encoding
+		        String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
 
-			        //Get the Language Code
-			        int languageCodeLength = payload[0] & 0077;
-			        String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+		        //Get the Language Code
+		        int languageCodeLength = payload[0] & 0077;
+		        String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
 
-			        //Get the Text
-			        String text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-			        
-			        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-			    
-				
-				
-
-		    	} catch(Exception e){
-			        Toast.makeText(this, "Fail", Toast.LENGTH_LONG).show();
-
-		    		throw new RuntimeException("Record Parsing Failure!!");
-		    	}
-		    	
-		    	
-		    	
-		    	//str = new String(message.getRecords()[0].getPayload());
-	        
+		        //Get the Text
+		        String text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
+		        tv.setText("NFC  Type "+type + " detected"+"\n"+"\n" +"ReadSpeed: " + String.valueOf(bytesPerMilliSecond) + "kb/s\n\n"
+		        			+ "Content: " + text);
 	        
 	        }
 		} catch (IOException e1) {
@@ -156,11 +153,35 @@ public class ReadResultsActivity extends Activity {
 		} catch (FormatException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		} catch(Exception e){
+	        Toast.makeText(this, "Fail", Toast.LENGTH_LONG).show();
 
-		
+    		throw new RuntimeException("Record Parsing Failure!!");
+	    }
+	}
 	
+	/** Called when the user touches the button */
+	public void sendWriteMessage(View view) {
+	    // Do something in response to button click
+		Intent myIntent = new Intent(this, WriteResultActivity.class);
+//		myIntent.putExtra("key", value); //Optional parameters
+		this.startActivity(myIntent);
+	}
+	/** Called when the user touches the button */
+	public void sendReadMessage(View view) {
+	    // Do something in response to button click
+//		Intent myIntent = new Intent(this, ReadResultsActivity.class);
+//		myIntent.putExtra("key", value); //Optional parameters
+//		this.startActivity(myIntent);
+//		finish();
+		Toast.makeText(getApplicationContext(), "Already in Read", Toast.LENGTH_LONG).show();
 
-	
+	}
+	/** Called when the user touches the button */
+	public void sendLastTenMessage(View view) {
+		// Do something in response to button click
+		Intent myIntent = new Intent(this, TopTenActivity.class);
+//		myIntent.putExtra("key", value); //Optional parameters
+		this.startActivity(myIntent);
 	}
 }

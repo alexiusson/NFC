@@ -25,19 +25,17 @@ public class TopTenActivity extends Activity {
 	/** Called when the user touches the button */
 	public void sendWriteMessage(View view) {
 	    // Do something in response to button click
-		Intent myIntent = new Intent(this, WriteActivity.class);
+		Intent myIntent = new Intent(this, WriteResultActivity.class);
 //		myIntent.putExtra("key", value); //Optional parameters
 		this.startActivity(myIntent);
-		finish();
 		
 	}
 	/** Called when the user touches the button */
 	public void sendReadMessage(View view) {
 	    // Do something in response to button click
-		Intent myIntent = new Intent(this, ReadActivity.class);
+		Intent myIntent = new Intent(this, ReadResultsActivity.class);
 //		myIntent.putExtra("key", value); //Optional parameters
 		this.startActivity(myIntent);
-		finish();
 	}
 	/** Called when the user touches the button */
 	public void sendLastTenMessage(View view) {
