@@ -5,8 +5,6 @@ import java.io.UnsupportedEncodingException;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-/*import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;*/
 import android.view.View.OnClickListener;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +31,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	private EditText enterMessageField;
 	private long startTime;
 	private long endTime;
+	private DatabaseHelper dbh;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,8 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		writeResultTV = (TextView) findViewById(R.id.writeResult);
 		// Här matas input till tag
 		enterMessageField = (EditText) findViewById(R.id.writeEnterMessage);
+		dbh = new DatabaseHelper(getApplicationContext());
+
 	}
 
 	@Override
@@ -105,6 +106,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		try {
 			// see if tag is already NDEF formatted
 			Ndef ndef = Ndef.get(tag);
+			int maxSize = ndef.getMaxSize();
 			String type = ndef.getType();
 			if (ndef != null) {
 				ndef.connect();
@@ -123,7 +125,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 				startTime=System.currentTimeMillis();
 				ndef.writeNdefMessage(message);
 				endTime=System.currentTimeMillis();
-				computeTime(startTime, endTime, message, type);
+				computeTime(startTime, endTime, message, type, maxSize);
 				Toast.makeText(this, "Tag written successfully.", Toast.LENGTH_LONG).show();
 				return true;
 			} else {
@@ -136,7 +138,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 						format.format(message);
 						endTime=System.currentTimeMillis();
 						Toast.makeText(this, "Tag written successfully!", Toast.LENGTH_LONG).show();
-						computeTime(startTime, endTime, message, type);
+						computeTime(startTime, endTime, message, type, maxSize);
 						return true;
 					} catch (IOException e) {
 						Toast.makeText(this, "Unable to format tag to NDEF.", Toast.LENGTH_LONG).show();
@@ -154,7 +156,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
         return false;
     }
 	
-	private void computeTime(long sTime, long eTime, NdefMessage nMessage, String type){
+	private void computeTime(long sTime, long eTime, NdefMessage nMessage, String type, int maxSize){
 		int bytes = nMessage.getByteArrayLength();
 		double bytesPermilSec= (eTime-sTime)/(double)bytes;
 		bytesPermilSec = Math.round(bytesPermilSec*100);
@@ -214,10 +216,11 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	/** Called when the user touches the button */
 	public void sendWriteMessage(View view) {
 	    // Do something in response to button click
-		Intent myIntent = new Intent(this, WriteResultActivity.class);
+		//Intent myIntent = new Intent(this, WriteResultActivity.class);
 //		myIntent.putExtra("key", value); //Optional parameters
-		this.startActivity(myIntent);
-		finish();
+		//this.startActivity(myIntent);
+		//finish();
+		Toast.makeText(this, "Already in write", Toast.LENGTH_LONG).show();
 	}
 	/** Called when the user touches the button */
 	public void sendReadMessage(View view) {

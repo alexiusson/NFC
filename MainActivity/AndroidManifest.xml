@@ -4,9 +4,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-permission 
-        android:name="android.permission.NFC" />
-    
+    <uses-permission android:name="android.permission.NFC" />
+
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="19" />
@@ -28,12 +27,10 @@
             </intent-filter>
         </activity>
         <activity
-            
             android:name="com.example.nfc.ReadActivity"
             android:label="@string/title_activity_read"
             android:screenOrientation="portrait"
             android:theme="@style/noAnimTheme" >
-             
         </activity>
         <activity
             android:name="com.example.nfc.WriteActivity"
@@ -49,18 +46,15 @@
         </activity>
         <activity
             android:name="com.example.nfc.ReadResultsActivity"
-            android:label="@string/title_activity_read_results" 
+            android:label="@string/title_activity_read_results"
             android:theme="@style/noAnimTheme" >
-            
-            
-            
         </activity>
-         <activity
+        <activity
             android:name="com.example.nfc.WriteResultActivity"
             android:label="title_activity_write_result"
             android:screenOrientation="portrait"
             android:theme="@style/noAnimTheme" >
-	        </activity>
+        </activity>
     </application>
 
 </manifest>

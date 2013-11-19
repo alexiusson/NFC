@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"        
         android:layout_toLeftOf="@+id/writeButton"
         android:onClick="sendReadMessage"
-        android:text="Read" />
+        android:text="@string/title_activity_read" />
 
     <Button 
         style="@style/buttons"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/writeButton"
         android:onClick="sendLastTenMessage"
-        android:text="Last 10" />
+        android:text="@string/title_activity_top_ten" />
 
     <Button
         style="@style/buttons"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:onClick="sendWriteMessage"
-        android:text="Write" />
+        android:text="@string/title_activity_write" />
 
     <TextView
         android:id="@+id/textView1"
@@ -41,6 +41,6 @@
         android:layout_marginTop="70dp"
         android:textSize="30sp"
         android:textColor="#309C28"
-        android:text="SAABNFC" />
+        android:text="@string/app_name" />
 
 </RelativeLayout>

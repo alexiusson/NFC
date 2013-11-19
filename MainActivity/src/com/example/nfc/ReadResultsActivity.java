@@ -14,8 +14,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+//import android.widget.Button;
+//import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,14 +23,15 @@ import android.widget.Toast;
 public class ReadResultsActivity extends Activity {
 
 	private NfcAdapter mAdapter;
-	private Button readTagButton;
-	private boolean inWriteMode;
-	private TextView readResultTV;
-	private EditText enterMessageField;
-	private long startTime;
-	private long endTime;
+//	private Button readTagButton;
+//	private boolean inWriteMode;
+//	private TextView readResultTV;
+//	private EditText enterMessageField;
+//	private long startTime;
+//	private long endTime;
 	private TextView tv;
 	private ProgressBar pb;
+	private DatabaseHelper dbh;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class ReadResultsActivity extends Activity {
 		pb = (ProgressBar) findViewById(R.id.progressBar1);
 		// Read button
 		//readTagButton = (Button) findViewById(R.id.writeSendButton);
+		dbh = new DatabaseHelper(getApplicationContext());
+
 		
 
 		// Här skrivs write speed ut
@@ -103,7 +106,7 @@ public class ReadResultsActivity extends Activity {
 	    
 		NdefMessage message;
 		String type;
-		Ndef ndef =Ndef.get(tag);
+		Ndef ndef = Ndef.get(tag);
 		type = ndef.getType();
 		
 		
@@ -124,15 +127,15 @@ public class ReadResultsActivity extends Activity {
 		
 		try {
 	    	startTime = System.currentTimeMillis();
-			ndef.connect();
+	    	ndef.connect();
 			message =ndef.getNdefMessage();
-	        endTime = System.currentTimeMillis();
 			ndef.close();
+	        endTime = System.currentTimeMillis();
 	        if (message != null) {
 	        	byte[] payload = message.getRecords()[0].getPayload();
-				bytesPerMilliSecond = (endTime - startTime)/ (double) payload.length;
-				bytesPerMilliSecond = Math.round(bytesPerMilliSecond*100);
-				bytesPerMilliSecond = bytesPerMilliSecond/100;
+				bytesPerMilliSecond = payload.length / (double)(endTime - startTime);
+//				bytesPerMilliSecond = Math.round(bytesPerMilliSecond*100);
+//				bytesPerMilliSecond = bytesPerMilliSecond/100;
 				
 	    		//Get the Text Encoding
 		        String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
@@ -145,6 +148,7 @@ public class ReadResultsActivity extends Activity {
 		        String text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
 		        tv.setText("NFC  Type "+type + " detected"+"\n"+"\n" +"ReadSpeed: " + String.valueOf(bytesPerMilliSecond) + "kb/s\n\n"
 		        			+ "Content: " + text);
+//		        dbh.addRead(type, bytesPerMilliSecond);
 	        
 	        }
 		} catch (IOException e1) {
@@ -170,10 +174,6 @@ public class ReadResultsActivity extends Activity {
 	/** Called when the user touches the button */
 	public void sendReadMessage(View view) {
 	    // Do something in response to button click
-//		Intent myIntent = new Intent(this, ReadResultsActivity.class);
-//		myIntent.putExtra("key", value); //Optional parameters
-//		this.startActivity(myIntent);
-//		finish();
 		Toast.makeText(getApplicationContext(), "Already in Read", Toast.LENGTH_LONG).show();
 
 	}

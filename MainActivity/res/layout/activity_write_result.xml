@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/writeEnterMessage"
             android:layout_centerHorizontal="true"
-            android:text="Write to tag" />
+            android:text="@string/write_to_tag_button" />
 
         <EditText
             android:id="@+id/writeEnterMessage"
@@ -41,14 +41,12 @@
             android:layout_below="@+id/writeSendButton"
             android:layout_marginRight="26dp"
             android:layout_marginTop="100dp"
-            android:layout_toLeftOf="@+id/writeSendMessage"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignRight="@+id/relativeLayout1"
          >
 
         <Button
@@ -57,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:onClick="sendWriteMessage"
-            android:text="Write" />
+            android:text="@string/title_activity_write" />
 
         <Button
             android:id="@+id/last10Button"
@@ -67,7 +65,7 @@
             android:layout_alignBottom="@+id/writeButton"
             android:onClick="sendLastTenMessage"
             android:layout_toRightOf="@+id/writeButton"
-            android:text="Last 10" />
+            android:text="@string/title_activity_top_ten" />
 
         <Button
             android:id="@+id/readButton"
@@ -75,7 +73,7 @@
             android:layout_height="wrap_content"
             android:onClick="sendReadMessage"
             android:layout_toLeftOf="@+id/writeButton"
-            android:text="Read" />
+            android:text="@string/title_activity_read" />
     </RelativeLayout>
 
 </RelativeLayout>

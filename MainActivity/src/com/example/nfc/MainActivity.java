@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	NfcAdapter mNfcAdapter;
+	private NfcAdapter mNfcAdapter;
+	private DatabaseHelper dbh;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		dbh = new DatabaseHelper(getApplicationContext());
 		
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		if (!mNfcAdapter.isEnabled()) {

@@ -15,6 +15,7 @@ public class EnableNFCDialog extends DialogFragment {
         builder.setMessage(R.string.dialog_enable_nfc)
                .setPositiveButton(R.string.dialog_settings, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
+                	   //Redirect to device nfc settings
                 	   startActivity(new Intent(android.provider.Settings.ACTION_NFC_SETTINGS));
                    }
                })

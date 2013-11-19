@@ -9,8 +9,41 @@
     tools:context=".TopTenActivity" >
 
     <TextView
+        android:id="@+id/testview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+         >
+
+        <Button
+            android:id="@+id/writeButton"
+            style="@style/buttons"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:onClick="sendWriteMessage"
+            android:text="@string/title_activity_write" />
+
+        <Button
+            android:id="@+id/last10Button"
+            style="@style/buttons"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/writeButton"
+            android:layout_alignBottom="@+id/writeButton"
+            android:onClick="sendLastTenMessage"
+            android:layout_toRightOf="@+id/writeButton"
+            android:text="@string/title_activity_top_ten" />
+
+        <Button
+            android:id="@+id/readButton"
+            style="@style/buttons"
+            android:layout_height="wrap_content"
+            android:onClick="sendReadMessage"
+            android:layout_toLeftOf="@+id/writeButton"
+            android:text="@string/title_activity_read" />
+    </RelativeLayout>
 </RelativeLayout>
+

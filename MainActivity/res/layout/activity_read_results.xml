@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"        
         android:layout_toLeftOf="@+id/writeButton"
         android:onClick="sendReadMessage"
-        android:text="Read" />
+        android:text="@string/title_activity_read" />
 
     <Button 
         style="@style/buttons"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/writeButton"
         android:onClick="sendLastTenMessage"
-        android:text="Last 10" />
+        android:text="@string/title_activity_top_ten" />
 
     <Button
         style="@style/buttons"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:onClick="sendWriteMessage"
-        android:text="Write" />
+        android:text="@string/title_activity_write" />
 
     <ProgressBar
         android:id="@+id/progressBar1"
