@@ -34,6 +34,16 @@ public class TopTenActivity extends Activity {
 		tv8 = (TextView) findViewById(R.id.textView8);
 		tv9 = (TextView) findViewById(R.id.textView9);
 		tv10 = (TextView) findViewById(R.id.textView10);
+		tv11 = (TextView) findViewById(R.id.textView11);
+		tv12 = (TextView) findViewById(R.id.textView12);
+		tv13 = (TextView) findViewById(R.id.textView13);
+		tv14 = (TextView) findViewById(R.id.textView14);
+		tv15 = (TextView) findViewById(R.id.textView15);
+		tv16 = (TextView) findViewById(R.id.textView16);
+		tv17 = (TextView) findViewById(R.id.textView17);
+		tv18 = (TextView) findViewById(R.id.textView18);
+		tv19 = (TextView) findViewById(R.id.textView19);
+		tv20 = (TextView) findViewById(R.id.textView20);
 		print();
 	}
 
@@ -67,11 +77,10 @@ public class TopTenActivity extends Activity {
 	}
 
 	private void print(){
-		Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
 		ArrayList<String> readList = dbh.showResults(dbh.results("read"));
 		ArrayList<String> writeList = dbh.showResults(dbh.results("write"));
 		// read list
-		/*tv1.setText(readList.get(0));
+		tv1.setText(readList.get(0));
 		tv2.setText(readList.get(1));
 		tv3.setText(readList.get(2));
 		tv4.setText(readList.get(3));
@@ -80,10 +89,10 @@ public class TopTenActivity extends Activity {
 		tv7.setText(readList.get(6));
 		tv8.setText(readList.get(7));
 		tv9.setText(readList.get(8));
-		tv10.setText(readList.get(9));*/
+		tv10.setText(readList.get(9));
 		// write list
 		tv11.setText(writeList.get(0));
-		/*tv12.setText(writeList.get(1));
+		tv12.setText(writeList.get(1));
 		tv13.setText(writeList.get(2));
 		tv14.setText(writeList.get(3));
 		tv15.setText(writeList.get(4));
@@ -91,7 +100,7 @@ public class TopTenActivity extends Activity {
 		tv17.setText(writeList.get(6));
 		tv18.setText(writeList.get(7));
 		tv19.setText(writeList.get(8));
-		tv20.setText(writeList.get(9));*/
+		tv20.setText(writeList.get(9));
 	}
 
 }

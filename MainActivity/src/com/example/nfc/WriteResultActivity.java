@@ -176,7 +176,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 			type = "Unknown";
 		}
 		
-		writeResultTV.setText(	"NFC Type: " + type + " detected\n\n" + 
+		writeResultTV.setText(	"NFC Type: " + type + " detected!\n\n" + 
 								"Write speed: " + String.valueOf(bytesPermilSec) + " kb/s");
 		dbh.addWrite(type, bytesPermilSec);
 //		Toast.makeText(this, "Writespeed: " + String.valueOf(bytesPermilSec) + " kb/s", Toast.LENGTH_LONG).show();
@@ -219,7 +219,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 //		myIntent.putExtra("key", value); //Optional parameters
 		//this.startActivity(myIntent);
 		//finish();
-		Toast.makeText(this, "Already in write", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "Already in write", Toast.LENGTH_LONG).show();
 	}
 	/** Called when the user touches the button */
 	public void sendReadMessage(View view) {

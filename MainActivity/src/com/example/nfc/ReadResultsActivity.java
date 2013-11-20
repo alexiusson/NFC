@@ -144,7 +144,7 @@ public class ReadResultsActivity extends Activity {
 
 		        //Get the Text
 		        String text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-		        tv.setText("NFC Type "+type + " detected"+"\n"+"\n" +"Read speed: " + String.valueOf(bytesPerMilliSecond) + "kb/s\n\n"
+		        tv.setText("NFC Type "+type + " detected!"+"\n"+"\n" +"Read speed: " + String.valueOf(bytesPerMilliSecond) + " kb/s\n\n"
 		        			+ "Content: " + text);
 		        dbh.addRead(type, bytesPerMilliSecond);
 	        
@@ -172,7 +172,7 @@ public class ReadResultsActivity extends Activity {
 	/** Called when the user touches the button */
 	public void sendReadMessage(View view) {
 	    // Do something in response to button click
-		Toast.makeText(getApplicationContext(), "Already in Read", Toast.LENGTH_LONG).show();
+		//Toast.makeText(getApplicationContext(), "Already in Read", Toast.LENGTH_LONG).show();
 
 	}
 	/** Called when the user touches the button */

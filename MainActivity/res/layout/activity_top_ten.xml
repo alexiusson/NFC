@@ -167,7 +167,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#DDE4DD"
-                    android:text="TextView" />
+                    />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -175,7 +175,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#BABFBA"
-                    android:text="TextView" />
+                    />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -183,7 +183,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#DDE4DD"
-                    android:text="TextView" />
+                     />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -191,7 +191,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#BABFBA"
-                    android:text="TextView" />
+                    />
 
                 <TextView
                     android:id="@+id/textView15"
@@ -199,7 +199,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#DDE4DD"
-                    android:text="TextView" />
+                    />
 
                 <TextView
                     android:id="@+id/textView16"
@@ -207,7 +207,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#BABFBA"
-                    android:text="TextView" />
+                     />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -215,7 +215,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#DDE4DD"
-                    android:text="TextView" />
+                    />
 
                 <TextView
                     android:id="@+id/textView18"
@@ -223,7 +223,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#BABFBA"
-                    android:text="Result = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhc" />
+					/>
 
                 <TextView
                     android:id="@+id/textView19"
@@ -231,15 +231,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#DDE4DD"
-                    android:text="Result = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhc" />
-
+					/>
+                
                 <TextView
                     android:id="@+id/textView20"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#BABFBA"
-                    android:text="Result = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhcResult = fdskjzbk \n dsjcnnj \n adksbhc" />
+					/>
             </LinearLayout>
         </ScrollView>
 
