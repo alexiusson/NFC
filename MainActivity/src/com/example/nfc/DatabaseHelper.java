@@ -8,6 +8,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -71,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public boolean addWrite(String type, double sp){
         SQLiteDatabase db = this.getReadableDatabase();
 		String speed = String.valueOf(sp);
-		String sql = "INSERT INTO " + DB_TABLE_WRITE + " (Speed, Type) VALUES(" + speed + ", '" + type + "')";
+		String sql = "INSERT INTO " + DB_TABLE_WRITE + " (Speed, Type) VALUES(" + speed + ", '" + type + "');";
 		try{
 			db.execSQL(sql);
 		} catch(SQLException e){
@@ -95,17 +96,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 		return c;
 	}
+	
+	public ArrayList<String> showResults(Cursor c) {
+		ArrayList<String> list = new ArrayList<String>();
+		int iSpeed = c.getColumnIndex(DB_COL_SPEED);
+		int iType = c.getColumnIndex(DB_COL_TYPE);
+		
+		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+			list.add("Speed: " + c.getString(iSpeed) + " kb/s\nType: " + c.getString(iType));
+		}
+		return list;
+	}
 
 	// HŠmtar 10 senaste resultaten
 	// select * from (select * from Results order by sortfield ASC limit 10)
 	// order by sortfield DESC;
 	
-//	public class DBResult{
-//		public String type, speed;
-//		public DBResult(){
-//			type = "";
-//			speed = "";
-//		}
-//	}
 
 }

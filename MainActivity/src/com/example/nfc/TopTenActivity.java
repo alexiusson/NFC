@@ -1,5 +1,7 @@
 package com.example.nfc;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,14 +16,25 @@ import android.widget.Toast;
 public class TopTenActivity extends Activity {
 
 	private DatabaseHelper dbh;
-	TextView tv;
+	TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10,
+			tv11, tv12, tv13, tv14, tv15, tv16, tv17, tv18, tv19, tv20;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_top_ten);
 		dbh = new DatabaseHelper(getApplicationContext());
-		 tv = (TextView) findViewById(R.id.testview);
+		tv1 = (TextView) findViewById(R.id.textView1);
+		tv2 = (TextView) findViewById(R.id.textView2);
+		tv3 = (TextView) findViewById(R.id.textView3);
+		tv4 = (TextView) findViewById(R.id.textView4);
+		tv5 = (TextView) findViewById(R.id.textView5);
+		tv6 = (TextView) findViewById(R.id.textView6);
+		tv7 = (TextView) findViewById(R.id.textView7);
+		tv8 = (TextView) findViewById(R.id.textView8);
+		tv9 = (TextView) findViewById(R.id.textView9);
+		tv10 = (TextView) findViewById(R.id.textView10);
+		print();
 	}
 
 	@Override
@@ -54,11 +67,31 @@ public class TopTenActivity extends Activity {
 	}
 
 	private void print(){
-		Cursor read = dbh.results("read");
-		read.moveToFirst();
-		tv.setText("Read: " + read.getString(1));
-		
-		Cursor write = dbh.results("write");
+		Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
+		ArrayList<String> readList = dbh.showResults(dbh.results("read"));
+		ArrayList<String> writeList = dbh.showResults(dbh.results("write"));
+		// read list
+		/*tv1.setText(readList.get(0));
+		tv2.setText(readList.get(1));
+		tv3.setText(readList.get(2));
+		tv4.setText(readList.get(3));
+		tv5.setText(readList.get(4));
+		tv6.setText(readList.get(5));
+		tv7.setText(readList.get(6));
+		tv8.setText(readList.get(7));
+		tv9.setText(readList.get(8));
+		tv10.setText(readList.get(9));*/
+		// write list
+		tv11.setText(writeList.get(0));
+		/*tv12.setText(writeList.get(1));
+		tv13.setText(writeList.get(2));
+		tv14.setText(writeList.get(3));
+		tv15.setText(writeList.get(4));
+		tv16.setText(writeList.get(5));
+		tv17.setText(writeList.get(6));
+		tv18.setText(writeList.get(7));
+		tv19.setText(writeList.get(8));
+		tv20.setText(writeList.get(9));*/
 	}
 
 }
