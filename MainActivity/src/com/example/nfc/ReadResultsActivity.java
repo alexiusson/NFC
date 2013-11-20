@@ -77,11 +77,9 @@ public class ReadResultsActivity extends Activity {
 
 	@Override
 	public void onNewIntent(Intent intent) {
-
 		Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 		readFromTag(tag);
 		pb.setVisibility(View.GONE);
-
 	}
 
 	private void enableRead() {
@@ -112,15 +110,15 @@ public class ReadResultsActivity extends Activity {
 		
 		
 		if(type.equals(Ndef.MIFARE_CLASSIC)){
-			type = "Mifareclassic";
+			type = "MiFare Classic";
 		}else if(type.equals(Ndef.NFC_FORUM_TYPE_1)){
-			type = "1";
+			type = "Type 1";
 		}else if(type.equals(Ndef.NFC_FORUM_TYPE_2)){
-			type = "2";
+			type = "Type 2";
 		}else if(type.equals(Ndef.NFC_FORUM_TYPE_3)){
-			type = "3";
+			type = "Type 3";
 		}else if(type.equals(Ndef.NFC_FORUM_TYPE_4)){
-			type = "4";
+			type = "Type 4";
 		}else{
 			type = "Unknown";
 		}
@@ -146,9 +144,9 @@ public class ReadResultsActivity extends Activity {
 
 		        //Get the Text
 		        String text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-		        tv.setText("NFC  Type "+type + " detected"+"\n"+"\n" +"ReadSpeed: " + String.valueOf(bytesPerMilliSecond) + "kb/s\n\n"
+		        tv.setText("NFC Type "+type + " detected"+"\n"+"\n" +"Read speed: " + String.valueOf(bytesPerMilliSecond) + "kb/s\n\n"
 		        			+ "Content: " + text);
-//		        dbh.addRead(type, bytesPerMilliSecond);
+		        dbh.addRead(type, bytesPerMilliSecond);
 	        
 	        }
 		} catch (IOException e1) {

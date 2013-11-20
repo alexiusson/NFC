@@ -17,15 +17,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String DB_COL_SPEED = "Speed";
 	static final String DB_COL_TYPE = "Type";
 
-	static final int DB_VERSION = 1;
+	static final int DB_VERSION = 2;
 	static final String SQL_CREATE_READ_TABLE = ("CREATE TABLE " + DB_TABLE_READ + " (" +
 																"ID INTEGER primary key AUTOINCREMENT," + 
 																DB_COL_SPEED + " TEXT not null," + 
-																DB_COL_TYPE + " TEXT not null");
+																DB_COL_TYPE + " TEXT not null)");
 	static final String SQL_CREATE_WRITE_TABLE = ("CREATE TABLE " + DB_TABLE_WRITE + " (" + 
 																"ID INTEGER primary key AUTOINCREMENT," + 
 																DB_COL_SPEED + " TEXT not null," + 
-																DB_COL_TYPE + " TEXT not null");
+																DB_COL_TYPE + " TEXT not null)");
 	
 	
 	//private SQLiteDatabase db;
@@ -38,8 +38,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		db.execSQL(SQL_CREATE_READ_TABLE);
-		db.execSQL(SQL_CREATE_WRITE_TABLE);	
+		try {
+			db.execSQL(SQL_CREATE_READ_TABLE);
+			db.execSQL(SQL_CREATE_WRITE_TABLE);	
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -54,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
         SQLiteDatabase db = this.getReadableDatabase();
 		String speed = String.valueOf(sp);
-		String sql = "INSERT INTO " + DB_TABLE_READ + " (Speed, Type) VALUES(" + speed + ", " + type + ") "  ;
+		String sql = "INSERT INTO " + DB_TABLE_READ + " (Speed, Type) VALUES(" + speed + ", '" + type + "');";
 		try{
 			db.execSQL(sql);
 		} catch(SQLException e){
@@ -67,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public boolean addWrite(String type, double sp){
         SQLiteDatabase db = this.getReadableDatabase();
 		String speed = String.valueOf(sp);
-		String sql = "INSERT INTO " + DB_TABLE_WRITE + " (Speed, Type) VALUES(" + speed + ", " + type + ") "  ;
+		String sql = "INSERT INTO " + DB_TABLE_WRITE + " (Speed, Type) VALUES(" + speed + ", '" + type + "')";
 		try{
 			db.execSQL(sql);
 		} catch(SQLException e){

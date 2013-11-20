@@ -110,7 +110,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 			String type = ndef.getType();
 			if (ndef != null) {
 				ndef.connect();
-
+				
 				if (!ndef.isWritable()) {
 					Toast.makeText(this, "Read-only tag.", Toast.LENGTH_LONG).show();
 					return false;
@@ -163,24 +163,23 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		bytesPermilSec = bytesPermilSec/100;
 		
 		if(type.equals(Ndef.MIFARE_CLASSIC)){
-			type = "Mifareclassic";
+			type = "MiFare Classic";
 		}else if(type.equals(Ndef.NFC_FORUM_TYPE_1)){
-			type = "1";
+			type = "Type 1";
 		}else if(type.equals(Ndef.NFC_FORUM_TYPE_2)){
-			type = "2";
+			type = "Type 2";
 		}else if(type.equals(Ndef.NFC_FORUM_TYPE_3)){
-			type = "3";
+			type = "Type 3";
 		}else if(type.equals(Ndef.NFC_FORUM_TYPE_4)){
-			type = "4";
+			type = "Type 4";
 		}else{
 			type = "Unknown";
 		}
 		
 		writeResultTV.setText(	"NFC Type: " + type + " detected\n\n" + 
-								"Writespeed: " + String.valueOf(bytesPermilSec) + " kb/s");
-
+								"Write speed: " + String.valueOf(bytesPermilSec) + " kb/s");
+		dbh.addWrite(type, bytesPermilSec);
 //		Toast.makeText(this, "Writespeed: " + String.valueOf(bytesPermilSec) + " kb/s", Toast.LENGTH_LONG).show();
-		
 	}
 	
 	private NdefMessage editTextToNdefMsg(EditText et) {
