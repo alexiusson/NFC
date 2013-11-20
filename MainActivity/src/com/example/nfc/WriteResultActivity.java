@@ -158,7 +158,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	
 	private void computeTime(long sTime, long eTime, NdefMessage nMessage, String type, int maxSize){
 		int bytes = nMessage.getByteArrayLength();
-		double bytesPermilSec= (eTime-sTime)/(double)bytes;
+		double bytesPermilSec= bytes/(double)(eTime-sTime);
 		bytesPermilSec = Math.round(bytesPermilSec*100);
 		bytesPermilSec = bytesPermilSec/100;
 		

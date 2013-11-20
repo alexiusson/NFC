@@ -23,6 +23,7 @@ public class TopTenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_top_ten);
+		
 		dbh = new DatabaseHelper(getApplicationContext());
 		tv1 = (TextView) findViewById(R.id.textView1);
 		tv2 = (TextView) findViewById(R.id.textView2);
@@ -79,6 +80,15 @@ public class TopTenActivity extends Activity {
 	private void print(){
 		ArrayList<String> readList = dbh.showResults(dbh.results("read"));
 		ArrayList<String> writeList = dbh.showResults(dbh.results("write"));
+				
+		for(int i=readList.size(); i<10; i++) {
+			readList.add(i, "N/A");
+		}
+		
+		for(int k=writeList.size(); k<10; k++) {
+			writeList.add(k, "N/A");
+		}
+		
 		// read list
 		tv1.setText(readList.get(0));
 		tv2.setText(readList.get(1));

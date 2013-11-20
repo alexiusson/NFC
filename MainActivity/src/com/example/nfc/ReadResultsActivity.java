@@ -132,8 +132,8 @@ public class ReadResultsActivity extends Activity {
 	        if (message != null) {
 	        	byte[] payload = message.getRecords()[0].getPayload();
 				bytesPerMilliSecond = payload.length / (double)(endTime - startTime);
-//				bytesPerMilliSecond = Math.round(bytesPerMilliSecond*100);
-//				bytesPerMilliSecond = bytesPerMilliSecond/100;
+				bytesPerMilliSecond = Math.round(bytesPerMilliSecond*100);
+				bytesPerMilliSecond = bytesPerMilliSecond/100;
 				
 	    		//Get the Text Encoding
 		        String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
