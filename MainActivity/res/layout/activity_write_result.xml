@@ -29,10 +29,11 @@
             android:layout_alignLeft="@+id/writeResult"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="30dp"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="@string/write_message_text" />
+            android:text="@string/write_message_text"
+            android:maxLines="3" />
 
         <TextView
             android:id="@+id/writeResult"

@@ -12,8 +12,11 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.text.method.MovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 //import android.widget.Button;
 //import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -45,6 +48,7 @@ public class ReadResultsActivity extends Activity {
 		// Read button
 		//readTagButton = (Button) findViewById(R.id.writeSendButton);
 		dbh = new DatabaseHelper(getApplicationContext());
+	
 
 		
 
@@ -77,7 +81,9 @@ public class ReadResultsActivity extends Activity {
 
 	@Override
 	public void onNewIntent(Intent intent) {
+		
 		Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+		
 		readFromTag(tag);
 		pb.setVisibility(View.GONE);
 	}
@@ -101,65 +107,78 @@ public class ReadResultsActivity extends Activity {
 	    long startTime = 0;
 	    long endTime = 0;
 	    double bytesPerMilliSecond;
-	    
-		NdefMessage message;
-		String type;
-		Ndef ndef = Ndef.get(tag);
-		type = ndef.getType();
 		
-		
-		
-		if(type.equals(Ndef.MIFARE_CLASSIC)){
-			type = "MiFare Classic";
-		}else if(type.equals(Ndef.NFC_FORUM_TYPE_1)){
-			type = "Type 1";
-		}else if(type.equals(Ndef.NFC_FORUM_TYPE_2)){
-			type = "Type 2";
-		}else if(type.equals(Ndef.NFC_FORUM_TYPE_3)){
-			type = "Type 3";
-		}else if(type.equals(Ndef.NFC_FORUM_TYPE_4)){
-			type = "Type 4";
-		}else{
-			type = "Unknown";
-		}
-		
-		try {
-	    	startTime = System.currentTimeMillis();
-	    	ndef.connect();
-			message =ndef.getNdefMessage();
-			ndef.close();
-	        endTime = System.currentTimeMillis();
-	        if (message != null) {
-	        	byte[] payload = message.getRecords()[0].getPayload();
-				bytesPerMilliSecond = payload.length / (double)(endTime - startTime);
-				bytesPerMilliSecond = Math.round(bytesPerMilliSecond*100);
-				bytesPerMilliSecond = bytesPerMilliSecond/100;
+	    if(Ndef.get(tag)!=null){
+			try {
+				NdefMessage message;
+				String type;
 				
-	    		//Get the Text Encoding
-		        String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
-
-		        //Get the Language Code
-		        int languageCodeLength = payload[0] & 0077;
-		        String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-
-		        //Get the Text
-		        String text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-		        tv.setText("NFC Type "+type + " detected!"+"\n"+"\n" +"Read speed: " + String.valueOf(bytesPerMilliSecond) + " kb/s\n\n"
-		        			+ "Content: " + text);
-		        dbh.addRead(type, bytesPerMilliSecond);
-	        
-	        }
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (FormatException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch(Exception e){
-	        Toast.makeText(this, "Fail", Toast.LENGTH_LONG).show();
-
-    		throw new RuntimeException("Record Parsing Failure!!");
-	    }
+				
+					Ndef ndef = Ndef.get(tag);
+					type = ndef.getType();
+				
+					ndef.connect();
+					startTime = System.nanoTime();
+					
+					message =ndef.getNdefMessage();
+					
+					endTime=System.nanoTime();
+					ndef.close();
+			        
+			    	if(type.equals(Ndef.MIFARE_CLASSIC)){
+						type = "MiFare Classic";
+					}else if(type.equals(Ndef.NFC_FORUM_TYPE_1)){
+						type = "Type 1";
+					}else if(type.equals(Ndef.NFC_FORUM_TYPE_2)){
+						type = "Type 2";
+					}else if(type.equals(Ndef.NFC_FORUM_TYPE_3)){
+						type = "Type 3";
+					}else if(type.equals(Ndef.NFC_FORUM_TYPE_4)){
+						type = "Type 4";
+					}else{
+						type = "Unknown";
+					}
+			        
+			        if (message != null) {
+			        	byte[] payload = message.getRecords()[0].getPayload();
+						bytesPerMilliSecond = message.getByteArrayLength()/ ((double)((endTime - startTime)/1000000));
+						bytesPerMilliSecond = Math.round(bytesPerMilliSecond*10000);
+						bytesPerMilliSecond = bytesPerMilliSecond/10000;
+						
+			    		//Get the Text Encoding
+				        String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+		
+				        //Get the Language Code
+				        int languageCodeLength = payload[0] & 0077;
+				        String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+		
+				        //Get the Text
+				        String text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
+				        tv.setText("NFC Type "+type + " detected!"+"\n"+"\n" +"Read speed: " + String.valueOf(bytesPerMilliSecond) + " kb/s\n\n"+
+				        "Time: " + (((endTime-startTime)/1000000)) + "\nBytes: " + message.getByteArrayLength()
+				        			+ "\nContent: " + text);
+				        dbh.addRead(type, bytesPerMilliSecond);
+			        
+			        }
+			        
+				}
+				
+	
+			catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (FormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch(Exception e){
+		        Toast.makeText(this, "NDEF empty", Toast.LENGTH_LONG).show();
+	
+	    		throw new RuntimeException("Record Parsing Failure!!");
+		    }
+		    }
+		else{
+			  Toast.makeText(this, "Not NDEF formatted", Toast.LENGTH_LONG).show();
+		}
 	}
 	
 	/** Called when the user touches the button */

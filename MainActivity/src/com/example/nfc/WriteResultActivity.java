@@ -118,7 +118,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 				
 				// work out how much space we need for the data
 				int size = message.toByteArray().length;
-				if (ndef.getMaxSize() < size) {
+				if (ndef.getMaxSize()< size) {
 					Toast.makeText(this, "Tag doesn't have enough free space.", Toast.LENGTH_LONG).show();
 					return false;
 				}
