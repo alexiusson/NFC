@@ -47,7 +47,9 @@
         <activity
             android:name="com.example.nfc.ReadResultsActivity"
             android:label="@string/title_activity_read_results"
-            android:theme="@style/noAnimTheme" >
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimTheme"
+             >
         </activity>
         <activity
             android:name="com.example.nfc.WriteResultActivity"
