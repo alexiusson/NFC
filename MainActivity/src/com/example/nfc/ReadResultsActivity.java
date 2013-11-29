@@ -26,12 +26,7 @@ import android.widget.Toast;
 public class ReadResultsActivity extends Activity {
 
 	private NfcAdapter mAdapter;
-//	private Button readTagButton;
-//	private boolean inWriteMode;
-//	private TextView readResultTV;
-//	private EditText enterMessageField;
-//	private long startTime;
-//	private long endTime;
+
 	private TextView tv;
 	private ProgressBar pb;
 	private DatabaseHelper dbh;
@@ -45,17 +40,7 @@ public class ReadResultsActivity extends Activity {
 		tv = (TextView) findViewById(R.id.readResult);
 		tv.setText("Waiting for tag detection...");
 		pb = (ProgressBar) findViewById(R.id.progressBar1);
-		// Read button
-		//readTagButton = (Button) findViewById(R.id.writeSendButton);
 		dbh = new DatabaseHelper(getApplicationContext());
-	
-
-		
-
-		// Här skrivs write speed ut
-		//readResultTV = (TextView) findViewById(R.id.writeResult);
-		// Här matas input till tag
-		//enterMessageField = (EditText) findViewById(R.id.writeEnterMessage);
 	}
 
 	@Override
@@ -80,6 +65,7 @@ public class ReadResultsActivity extends Activity {
 	}
 
 	@Override
+	//Looking for a new tag to be read
 	public void onNewIntent(Intent intent) {
 		
 		Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -88,6 +74,9 @@ public class ReadResultsActivity extends Activity {
 		pb.setVisibility(View.GONE);
 	}
 
+	/**
+	 * Sets the current activity to NFC tag handler
+	 */
 	private void enableRead() {
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				new Intent(this, getClass())
@@ -103,6 +92,10 @@ public class ReadResultsActivity extends Activity {
 		mAdapter.disableForegroundDispatch(this);
 	}
 
+	/**
+	 * Reads from a tag
+	 * @param tag The tag 
+	 */
 	private void readFromTag(Tag tag) {
 	    long startTime = 0;
 	    long endTime = 0;
@@ -158,7 +151,6 @@ public class ReadResultsActivity extends Activity {
 				        "Time: " + (((endTime-startTime)/1000000)) + "\nBytes: " + message.getByteArrayLength()
 				        			+ "\nContent: " + text);
 				        dbh.addRead(type, bytesPerMilliSecond);
-			        
 			        }
 			        
 				}
@@ -181,20 +173,20 @@ public class ReadResultsActivity extends Activity {
 		}
 	}
 	
-	/** Called when the user touches the button */
+	/** Called when the user touches the write button */
 	public void sendWriteMessage(View view) {
 	    // Do something in response to button click
 		Intent myIntent = new Intent(this, WriteResultActivity.class);
 //		myIntent.putExtra("key", value); //Optional parameters
 		this.startActivity(myIntent);
 	}
-	/** Called when the user touches the button */
+	/** Called when the user touches the read button */
 	public void sendReadMessage(View view) {
 	    // Do something in response to button click
 		//Toast.makeText(getApplicationContext(), "Already in Read", Toast.LENGTH_LONG).show();
 
 	}
-	/** Called when the user touches the button */
+	/** Called when the user touches the last ten button */
 	public void sendLastTenMessage(View view) {
 		// Do something in response to button click
 		Intent myIntent = new Intent(this, TopTenActivity.class);

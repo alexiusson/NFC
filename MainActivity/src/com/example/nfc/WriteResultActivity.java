@@ -67,6 +67,7 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onNewIntent(Intent intent) {
+		//Looking for a tag
 		if(inWriteMode) {
 			inWriteMode = false;
 			Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -74,8 +75,10 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	
 	@Override
 	public void onClick(View v) {
+		//When clicking the write to tag button
 		if(v.getId() == R.id.writeSendButton) {
 			inWriteMode = true;
 			writeResultTV.setText("Hold tag against phone to write.");
@@ -86,6 +89,9 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	/**
+	 * Sets the current activity to NFC tag handler
+	 */
 	private void enableWrite() {
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 	            new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -99,7 +105,11 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 		mAdapter.disableForegroundDispatch(this);
 	}
 
-	
+	/**
+	 * Write the text in the text edit field to a tag
+	 * @param tag The tag which will be overwritten
+	 * @return True if no errors occurs
+	 */
 	private boolean writeToTag(Tag tag) {
 		NdefMessage message = editTextToNdefMsg(enterMessageField);
         
@@ -182,6 +192,11 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 //		Toast.makeText(this, "Writespeed: " + String.valueOf(bytesPermilSec) + " kb/s", Toast.LENGTH_LONG).show();
 	}
 	
+	/**
+	 * Converts the text in the text edit field to a Ndef message
+	 * @param et The text edit field
+	 * @return The converted Ndef message
+	 */
 	private NdefMessage editTextToNdefMsg(EditText et) {
 		String msg = et.getText().toString();
 	    byte[] languageCode;
@@ -212,23 +227,19 @@ public class WriteResultActivity extends Activity implements OnClickListener {
 	    return message;
 	}
 	
-	/** Called when the user touches the button */
+	/** Called when the user touches the write button */
 	public void sendWriteMessage(View view) {
 	    // Do something in response to button click
-		//Intent myIntent = new Intent(this, WriteResultActivity.class);
-//		myIntent.putExtra("key", value); //Optional parameters
-		//this.startActivity(myIntent);
-		//finish();
 		//Toast.makeText(this, "Already in write", Toast.LENGTH_LONG).show();
 	}
-	/** Called when the user touches the button */
+	/** Called when the user touches the read button */
 	public void sendReadMessage(View view) {
 	    // Do something in response to button click
 		Intent myIntent = new Intent(this, ReadResultsActivity.class);
 //		myIntent.putExtra("key", value); //Optional parameters
 		this.startActivity(myIntent);
 	}
-	/** Called when the user touches the button */
+	/** Called when the user touches the last ten button */
 	public void sendLastTenMessage(View view) {
 		// Do something in response to button click
 		Intent myIntent = new Intent(this, TopTenActivity.class);

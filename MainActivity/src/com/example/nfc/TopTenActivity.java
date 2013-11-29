@@ -25,6 +25,7 @@ public class TopTenActivity extends Activity {
 		setContentView(R.layout.activity_top_ten);
 		
 		dbh = new DatabaseHelper(getApplicationContext());
+		//Linking the textviews
 		tv1 = (TextView) findViewById(R.id.textView1);
 		tv2 = (TextView) findViewById(R.id.textView2);
 		tv3 = (TextView) findViewById(R.id.textView3);
@@ -55,7 +56,7 @@ public class TopTenActivity extends Activity {
 		return true;
 	}
 	
-	/** Called when the user touches the button */
+	/** Called when the user touches the write button */
 	public void sendWriteMessage(View view) {
 	    // Do something in response to button click
 		Intent myIntent = new Intent(this, WriteResultActivity.class);
@@ -63,20 +64,23 @@ public class TopTenActivity extends Activity {
 		this.startActivity(myIntent);
 		
 	}
-	/** Called when the user touches the button */
+	/** Called when the user touches the read button */
 	public void sendReadMessage(View view) {
 	    // Do something in response to button click
 		Intent myIntent = new Intent(this, ReadResultsActivity.class);
 //		myIntent.putExtra("key", value); //Optional parameters
 		this.startActivity(myIntent);
 	}
-	/** Called when the user touches the button */
+	/** Called when the user touches the last ten button */
 	public void sendLastTenMessage(View view) {
 		// Do something in response to button click
 //		Toast.makeText(getApplicationContext(), "Already in Last 10", Toast.LENGTH_LONG).show();
 		print();
 	}
 
+	/**
+	 * Prints the database to the lists.
+	 */
 	private void print(){
 		ArrayList<String> readList = dbh.showResults(dbh.results("read"));
 		ArrayList<String> writeList = dbh.showResults(dbh.results("write"));

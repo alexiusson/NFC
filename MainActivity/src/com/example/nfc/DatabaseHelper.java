@@ -55,6 +55,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
+	/**
+	 * Adds a read result to the database
+	 * @param type The type
+	 * @param sp The speed
+	 * @return True if no errors occurs
+	 */
 	public boolean addRead(String type, double sp){
 		
         SQLiteDatabase db = this.getReadableDatabase();
@@ -69,6 +75,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return true;
 	}
 	
+	/**
+	 * Adds a write result to the database
+	 * @param type The type
+	 * @param sp The speed
+	 * @return True if no errors occurs
+	 */
 	public boolean addWrite(String type, double sp){
         SQLiteDatabase db = this.getReadableDatabase();
 		String speed = String.valueOf(sp);
@@ -82,6 +94,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return true;	
 	}
 	
+	/**
+	 * Fetches the result from the database
+	 * @param table The table from the result shall be fetched from (read, write)
+	 * @return A cursor that points to the result
+	 */
 	public Cursor results (String table) {
         SQLiteDatabase db = this.getWritableDatabase();
 		String getTable = "";
@@ -97,6 +114,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return c;
 	}
 	
+	/**
+	 * Fetches an ArrayList with the results
+	 * @param c The cursor to be used
+	 * @return Arraylist<String> with the results
+	 */
 	public ArrayList<String> showResults(Cursor c) {
 		ArrayList<String> list = new ArrayList<String>();
 		int iSpeed = c.getColumnIndex(DB_COL_SPEED);

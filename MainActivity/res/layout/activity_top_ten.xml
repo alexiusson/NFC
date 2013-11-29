@@ -17,10 +17,10 @@
             android:id="@+id/textView21"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Read"
+            android:text="@string/title_activity_read_results"
             android:paddingLeft="10dp"
             android:textColor="#309C28"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_weight="0.5"
             android:layout_gravity="center"
             
@@ -30,9 +30,9 @@
             android:id="@+id/textView22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Write"
+            android:text="@string/title_activity_write_result"
             android:textColor="#309C28"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingLeft="10dp"
             android:layout_gravity="center"
             android:layout_weight="0.5"
@@ -257,7 +257,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:onClick="sendWriteMessage"
-            android:text="Write" />
+            android:text="@string/title_activity_write_result" />
 
         <Button
             android:id="@+id/last10Button"
@@ -267,7 +267,7 @@
             android:layout_alignBottom="@+id/writeButton"
             android:onClick="sendLastTenMessage"
             android:layout_toRightOf="@+id/writeButton"
-            android:text="Last 10" 
+            android:text="@string/title_activity_top_ten" 
             />
 
         <Button
@@ -276,7 +276,7 @@
             android:layout_height="wrap_content"
             android:onClick="sendReadMessage"
             android:layout_toLeftOf="@+id/writeButton"
-            android:text="Read" />
+            android:text="@string/title_activity_read_results" />
     </RelativeLayout>
 </LinearLayout>
 
